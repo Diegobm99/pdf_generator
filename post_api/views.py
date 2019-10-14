@@ -4,7 +4,7 @@ from rest_framework import status
 
 from post_api import serializers
 
-import pandas as pd
+#import pandas as pd
 from fpdf import FPDF
 
 def create_pdf(nome, cpf):
