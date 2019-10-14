@@ -6,6 +6,7 @@ from post_api import serializers
 
 #import pandas as pd
 from fpdf import FPDF
+#import fpdf
 
 def create_pdf(nome, cpf):
     pdf = FPDF()
@@ -67,7 +68,7 @@ class CSV(APIView):
 
             dados = f'Nome: {name}, CPF: {cpf}'
 
-            #create_pdf(name, cpf)
+            create_pdf(name, cpf)
 
             return Response({'dados': dados})
         else:
