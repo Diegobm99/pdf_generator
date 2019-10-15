@@ -70,6 +70,8 @@ class CSV(APIView):
 
             create_pdf(name, cpf)
 
+            print('teste')
+
             return Response({'dados': dados})
         else:
             return Response(
