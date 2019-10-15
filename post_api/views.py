@@ -91,7 +91,7 @@ class CSV(APIView):
                 aws_secret_access_key=ACCESS_SECRET_KEY,
                 config=Config(signature_version='s3v4')
             )
-            s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data)
+            s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data, ACL='public-read')
 
             return Response({'dados': dados})
         else:
