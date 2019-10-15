@@ -7,5 +7,5 @@ class HelloSerializers(serializers.Serializer):
 
 class csv_input(serializers.Serializer):
     """Serializes a name field for testing our APIView"""
-    name = serializers.CharField(max_length=10)
+    name = serializers.CharField(max_length=30)
     cpf = serializers.CharField(max_length=11)
