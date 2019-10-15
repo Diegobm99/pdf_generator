@@ -74,16 +74,6 @@ class CSV(APIView):
 
             create_pdf(name, cpf)
 
-            data = open('pdf_teste.pdf', 'rb')
-
-            s3 = boto3.resource(
-                's3',
-                aws_access_key_id=ACCESS_KEY_ID,
-                aws_secret_access_key=ACCESS_SECRET_KEY,
-                config=Config(signature_version='s3v4')
-            )
-            s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data)
-
             return Response({'dados': dados, 'link': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
         else:
             return Response(
