@@ -10,8 +10,6 @@ import boto3
 from botocore.client import Config
 #import fpdf
 
-ACCESS_KEY_ID = 'AKIAJMRQGH7LP3RER4AA'
-ACCESS_SECRET_KEY = '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'
 BUCKET_NAME = 'pdf.1'
 
 def create_pdf(nome, cpf):
