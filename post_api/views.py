@@ -5,12 +5,21 @@ from rest_framework import status
 from post_api import serializers
 
 #import pandas as pd
+import csv
 from fpdf import FPDF
 import boto3
 from botocore.client import Config
 #import fpdf
 
+
+a = []
+with open("credentials.csv") as csvfile:
+    data = csv.DictReader(csvfile)
+    for r in data:
+        a.append(r)
 BUCKET_NAME = 'pdf.1'
+ACCESS_KEY_ID = a[0]['Access key ID']
+ACCESS_SECRET_KEY = a[0]['Secret access key']
 
 def create_pdf(nome, cpf):
     pdf = FPDF()
@@ -73,6 +82,16 @@ class CSV(APIView):
             dados = f'Nome: {name}, CPF: {cpf}'
 
             create_pdf(name, cpf)
+
+            data = open('pdf_teste.pdf', 'rb')
+
+            s3 = boto3.resource(
+                's3',
+                aws_access_key_id=ACCESS_KEY_ID,
+                aws_secret_access_key=ACCESS_SECRET_KEY,
+                config=Config(signature_version='s3v4')
+            )
+            s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data)
 
             return Response({'dados': dados})
         else:
