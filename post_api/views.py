@@ -6,7 +6,13 @@ from post_api import serializers
 
 #import pandas as pd
 from fpdf import FPDF
+import boto3
+from botocore.client import Config
 #import fpdf
+
+ACCESS_KEY_ID = 'AKIAJMRQGH7LP3RER4AA'
+ACCESS_SECRET_KEY = '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'
+BUCKET_NAME = 'pdf.1'
 
 def create_pdf(nome, cpf):
     pdf = FPDF()
@@ -70,7 +76,15 @@ class CSV(APIView):
 
             create_pdf(name, cpf)
 
-            print('teste')
+            data = open('pdf_teste.pdf', 'rb')
+
+            s3 = boto3.resource(
+                's3',
+                aws_access_key_id=ACCESS_KEY_ID,
+                aws_secret_access_key=ACCESS_SECRET_KEY,
+                config=Config(signature_version='s3v4')
+            )
+            s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data)
 
             return Response({'dados': dados, 'link': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
         else:
