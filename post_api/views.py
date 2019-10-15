@@ -72,7 +72,7 @@ class CSV(APIView):
 
             print('teste')
 
-            return Response({'dados': dados})
+            return Response({'dados': dados, 'link': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
         else:
             return Response(
                 serializer.errors,
