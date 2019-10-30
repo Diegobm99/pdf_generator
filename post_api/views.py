@@ -86,7 +86,7 @@ class CSV(APIView):
 
             data = open('pdf_teste.pdf', 'rb')
 
-            b64_pdf = base64.b64encode(data.read())
+            #b64_pdf = base64.b64encode(data.read())
 
             s3 = boto3.resource(
                 's3',
