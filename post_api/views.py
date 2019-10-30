@@ -96,7 +96,7 @@ class CSV(APIView):
             )
             s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data, ACL='public-read')
 
-            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf', 'b64': str(b64_pdf)})
+            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
         else:
             return Response(
                 serializer.errors,
