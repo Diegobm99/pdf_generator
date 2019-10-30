@@ -6,6 +6,7 @@ from post_api import serializers
 
 #import pandas as pd
 import csv
+import base64
 from fpdf import FPDF
 import boto3
 from botocore.client import Config
@@ -85,6 +86,8 @@ class CSV(APIView):
 
             data = open('pdf_teste.pdf', 'rb')
 
+            b64_pdf = base64.b64encode(data.read())
+
             s3 = boto3.resource(
                 's3',
                 aws_access_key_id=ACCESS_KEY_ID,
@@ -93,7 +96,7 @@ class CSV(APIView):
             )
             s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data, ACL='public-read')
 
-            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
+            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf', 'b64': b64_pdf})
         else:
             return Response(
                 serializer.errors,
