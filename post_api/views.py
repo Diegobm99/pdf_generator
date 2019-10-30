@@ -86,8 +86,6 @@ class CSV(APIView):
 
             data = open('pdf_teste.pdf', 'rb')
 
-            b64_pdf = base64.b64encode(data.read())
-
             s3 = boto3.resource(
                 's3',
                 aws_access_key_id=ACCESS_KEY_ID,
@@ -95,6 +93,8 @@ class CSV(APIView):
                 config=Config(signature_version='s3v4')
             )
             s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data, ACL='public-read')
+
+            b64_pdf = base64.b64encode(data.read())
 
             return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
         else:
