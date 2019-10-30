@@ -96,7 +96,7 @@ class CSV(APIView):
 
             b64_pdf = base64.b64encode(data.read())
 
-            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf'})
+            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf', 'b64': b64_pdf})
         else:
             return Response(
                 serializer.errors,
