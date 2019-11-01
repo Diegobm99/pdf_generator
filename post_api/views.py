@@ -122,6 +122,7 @@ class CSV(APIView):
             bucket = client.get_bucket('files-cred')
             blob = bucket.blob(file_name)
             blob.upload_from_filename('./pdf_teste.pdf')
+            blob.make_public()
 
             #b64_pdf = base64.b64encode(open('pdf_teste.pdf', 'rb').read())
 
