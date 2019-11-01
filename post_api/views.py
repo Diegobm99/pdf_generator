@@ -124,11 +124,11 @@ class CSV(APIView):
             blob.upload_from_filename('./pdf_teste.pdf')
             blob.make_public()
 
-            #b64_pdf = base64.b64encode(open('pdf_teste.pdf', 'rb').read())
+            b64_pdf = base64.b64encode(open('pdf_teste.pdf', 'rb').read())
 
             link = f'https://storage.cloud.google.com/files-cred/{file_name}?cloudshell=false'
 
-            return Response({'dados': dados, 'url': link})
+            return Response({'dados': dados, 'url': link, 'b64_pdf': b64_pdf})
         else:
             return Response(
                 serializer.errors,
