@@ -109,7 +109,7 @@ class CSV(APIView):
 
             letters = string.ascii_letters
             hs = ''.join(random.choice(letters) for i in range(10))
-            file_name = f'{name}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}_{hs}.pdf'
+            file_name = f'{name.replace(' ', '_').strip()}_{datetime.now().strftime("%Y-%m-%dT%H:%M:%S")}_{hs}.pdf'
 
             with open('auth.txt') as json_file:
                 data = json.load(json_file)
