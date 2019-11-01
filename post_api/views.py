@@ -10,6 +10,15 @@ import base64
 from fpdf import FPDF
 import boto3
 from botocore.client import Config
+import json
+
+from gcloud import storage
+from oauth2client.service_account import ServiceAccountCredentials
+import os
+import random
+import string
+
+from datetime import datetime
 #import fpdf
 
 
@@ -84,6 +93,9 @@ class CSV(APIView):
 
             create_pdf(name, cpf)
 
+
+
+            '''
             data = open('pdf_teste.pdf', 'rb')
 
             s3 = boto3.resource(
@@ -93,10 +105,28 @@ class CSV(APIView):
                 config=Config(signature_version='s3v4')
             )
             s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data, ACL='public-read')
+            '''
 
-            b64_pdf = base64.b64encode(open('pdf_teste.pdf', 'rb').read())
+            letters = string.ascii_letters
+            hs = ''.join(random.choice(letters) for i in range(10))
+            file_name = f'{name}_{datetime.now().strftime("%Y-%m-%d %H:%M:%S")}_{hs}.pdf'
 
-            return Response({'dados': dados, 'url': 'https://s3-sa-east-1.amazonaws.com/pdf.1/teste.pdf', 'b64': b64_pdf.decode("utf-8") })
+            with open('auth.txt') as json_file:
+                data = json.load(json_file)
+
+            credentials = ServiceAccountCredentials.from_json_keyfile_dict(
+                data
+            )
+            client = storage.Client(credentials=credentials, project='cred-257217')
+            bucket = client.get_bucket('files-cred')
+            blob = bucket.blob(file_name)
+            blob.upload_from_filename('./pdf_teste.pdf')
+
+            #b64_pdf = base64.b64encode(open('pdf_teste.pdf', 'rb').read())
+
+            link = f'https://storage.cloud.google.com/files-cred/{file_name}?cloudshell=false'
+
+            return Response({'dados': dados, 'url': link})
         else:
             return Response(
                 serializer.errors,
