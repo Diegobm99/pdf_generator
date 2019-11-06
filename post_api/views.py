@@ -126,7 +126,8 @@ class CSV(APIView):
 
             b64_pdf = base64.b64encode(open('pdf_teste.pdf', 'rb').read())
 
-            link = f'https://storage.cloud.google.com/files-cred/{file_name}?cloudshell=false'
+            #link = f'https://storage.cloud.google.com/files-cred/{file_name}?cloudshell=false'
+            link = blob.public_url + '?cloudshell=false'
 
             return Response({'dados': dados, 'url': link, 'b64_pdf': b64_pdf})
         else:
