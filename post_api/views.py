@@ -89,7 +89,7 @@ class CSV(APIView):
             name = serializer.validated_data.get('name')
             cpf = serializer.validated_data.get('cpf')
 
-            dados = f'Nome: {name}, CPF: {cpf}'
+            dados = {'Nome': name, 'CPF': cpf}
 
             create_pdf(name, cpf)
 
