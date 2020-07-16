@@ -107,6 +107,7 @@ class CSV(APIView):
             s3.Bucket(BUCKET_NAME).put_object(Key='teste.pdf', Body=data, ACL='public-read')
             '''
 
+            '''
             letters = string.ascii_letters
             hs = ''.join(random.choice(letters) for i in range(10))
             name_link = name.replace(' ', '_').strip()
@@ -128,8 +129,10 @@ class CSV(APIView):
 
             #link = f'https://storage.cloud.google.com/files-cred/{file_name}?cloudshell=false'
             link = blob.public_url + '?cloudshell=false'
+            '''
 
-            return Response({'dados': dados, 'url': link, 'b64_pdf': b64_pdf})
+            #return Response({'dados': dados, 'url': link, 'b64_pdf': b64_pdf})
+            return Response({'dados': dados})
         else:
             return Response(
                 serializer.errors,
