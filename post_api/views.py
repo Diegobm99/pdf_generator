@@ -12,7 +12,7 @@ import boto3
 from botocore.client import Config
 import json
 
-from gcloud import storage
+from google.cloud import storage
 from oauth2client.service_account import ServiceAccountCredentials
 import os
 import random
