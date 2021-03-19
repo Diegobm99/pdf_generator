@@ -1,5 +1,5 @@
 django==2.2
-djangorestframework==3.9.2
+djangorestframework==3.11.2
 fpdf==1.7.2
 boto3==1.9.250
 gcloud==0.18.3
